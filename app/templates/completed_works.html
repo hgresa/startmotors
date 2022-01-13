@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <table id="table_id" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr id="titles">
+                <th>სახელი</th>
+                <th>გვარი</th>
+                <th>გადახდილი თანხა</th>
+                <th>გადახდის თარიღი</th>
+                <th>მანქანის მოდელი</th>
+                <th>აღწერა</th>
+                <th>ჩანაწერის შენახვის თარიღი</th>
+            </tr>
+        </thead>
+        <tbody id="table_body">
+            {% for completed_work in completed_works %}
+                <tr>
+                    <td>{{ completed_work.get_employee_name() }}</td>
+                    <td>{{ completed_work.get_employee_surname() }}</td>
+                    <td>{{ completed_work.get_paid_total() }}</td>
+                    <td>{{ completed_work.get_pay_date() }}</td>
+                    <td>{{ completed_work.get_car_model() }}</td>
+                    <td>{{ completed_work.get_description() }}</td>
+                    <td>{{ completed_work.get_created_at() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>სახელი</th>
+                <th>გვარი</th>
+                <th>გადახდილი თანხა</th>
+                <th>გადახდის თარიღი</th>
+                <th>მანქანის მოდელი</th>
+                <th>აღწერა</th>
+                <th>ჩანაწერის შენახვის თარიღი</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        $('#card-title').text('შესრულებული სამუშაოს ისტორია')
+        $('#collapsePages2').addClass('show')
+    </script>
+
+{% endblock %}

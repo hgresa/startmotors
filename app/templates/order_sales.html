@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <table id="table_id" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr id="titles">
+                <th>პროდუქტის დასახელება</th>
+                <th>კატეგორია</th>
+                <th>რაოდენობა</th>
+                {% if show_litres %}
+                    <th>ლიტრა</th>
+                {% endif %}
+                <th>თითოს ფასი ₾</th>
+                <th>ჯამური ფასი ₾</th>
+                <th>გაყიდვის თარიღი</th>
+            </tr>
+        </thead>
+        <tbody id="table_body">
+            {% for sale_item in order_sales %}
+                <tr>
+                    <td>{{ sale_item.get_product_name() }}</td>
+                    <td>{{ sale_item.get_product_category_name() }}</td>
+                    <td>{{ sale_item.get_quantity() }}</td>
+                    {% if show_litres %}
+                        <td>{{ sale_item.get_litres_quantity() }}</td>
+                    {% endif %}
+                    <td>{{ sale_item.get_price_per_piece() }}</td>
+                    <td>{{ sale_item.get_sold_for_total() }} ₾</td>
+                    <td>{{ sale_item.get_created_at() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>პროდუქტის დასახელება</th>
+                <th>კატეგორია</th>
+                <th>რაოდენობა</th>
+                {% if show_litres %}
+                    <th>ლიტრა</th>
+                {% endif %}
+                <th>თითოს ფასი ₾</th>
+                <th>ჯამური ფასი ₾</th>
+                <th>გაყიდვის თარიღი</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        $('#card-title').text('გაყიდვების ისტორია')
+        $('#collapseUtilities').addClass('show')
+    </script>
+
+{% endblock %}

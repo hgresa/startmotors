@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <table id="table_id" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr id="titles">
+                <th>პროდუქტის დასახელება</th>
+                <th>კატეგორია</th>
+                <th>რაოდენობა</th>
+                <th>თითოს შესასყიდი ფასი ₾</th>
+                <th>ჯამური ფასი ₾</th>
+                <th>შესყიდვის თარიღი</th>
+                {% if show_litres %}
+                    <th>ლიტრა</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="table_body">
+            {% for restock_arr in restock_history_list %}
+                <tr>
+                    {% for restock_entity in restock_arr %}
+                        <td>{{ restock_entity }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>პროდუქტის დასახელება</th>
+                <th>კატეგორია</th>
+                <th>რაოდენობა</th>
+                <th>თითოს შესასყიდი ფასი ₾</th>
+                <th>ჯამური ფასი ₾</th>
+                <th>შესყიდვის თარიღი</th>
+                {% if show_litres %}
+                    <th>ლიტრა</th>
+                {% endif %}
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        $('#card-title').text('შესყიდვების ისტორია')
+        $('#collapseUtilities').addClass('show')
+    </script>
+
+{% endblock %}

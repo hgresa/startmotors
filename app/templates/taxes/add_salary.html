@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% include "alert.html" %}
+
+    <form id="the_form" method="post" action="">
+        <div class="form-group">
+            <label for="employee_id" class="form-label">თანამშრომელი</label>
+            <select class="form-control" id="employee_id" name="employee_id" required>
+                {% for employee in employees %}
+                    <option value="{{ employee[0] }}">{{ employee[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount" class="form-label">რაოდენობა</label>
+            <input type="text" class="form-control" name="amount" id="amount" aria-describedby="amount" required>
+        </div>
+        <div class="form-group">
+            <label for="pay_date" class="form-label">თარიღი</label>
+            <input type="date" class="form-control" name="pay_date" id="pay_date" aria-describedby="pay_date" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">დასტური</button>
+    </form>
+
+    <script>
+        $('#card-title').text('ხელფასის გადახდა')
+        $('#collapsePages').addClass('show')
+
+        $(document).ready(function(){
+            $("#the_form").validate();
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% include "alert.html" %}
+
+    <form id="the_form" method="post" action="">
+        <div class="form-group">
+            <label for="product_name" class="form-label">პროდუქცის დასახელება</label>
+            <input type="text" class="form-control" name="product_name" id="product_name" aria-describedby="product_name" required>
+        </div>
+        <div class="form-group">
+            <label for="price_per_piece" class="form-label">გასაყიდი ფასი  ₾</label>
+            <input type="text" class="form-control" name="price_per_piece" id="price_per_piece" aria-describedby="price_per_piece" required>
+        </div>
+        <div class="form-group">
+            <label for="purchase_price_per_piece" class="form-label">თითოს შესასყიდი ფასი ₾</label>
+            <input type="text" class="form-control" name="purchase_price_per_piece" id="purchase_price_per_piece" aria-describedby="purchase_price_per_piece" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity" class="form-label">რაოდენობა</label>
+            <input type="text" class="form-control" name="quantity" id="quantity" aria-describedby="quantity" required>
+        </div>
+        <div class="form-group">
+            <label for="product_category" class="form-label">კატეგორია</label>
+            <select onchange="getAttributes(this.value)" class="form-control" id="product_category" name="product_category" required>
+                {% for item in product_categories %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    <script>
+        $('#card-title').text('პროდუქტის დამატება')
+        $('#collapseTwo').addClass('show')
+    </script>
+
+{% endblock %}

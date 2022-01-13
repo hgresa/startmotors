@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <table id="table_id" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr id="titles">
+                <th>გადახდილი თანხა</th>
+                <th>გადახდის თარიღი</th>
+                <th>აღწერა</th>
+            </tr>
+        </thead>
+        <tbody id="table_body">
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.get_paid_total() }}</td>
+                    <td>{{ expense.get_pay_date() }}</td>
+                    <td>{{ expense.get_description() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>გადახდილი თანხა</th>
+                <th>გადახდის თარიღი</th>
+                <th>აღწერა</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        $('#card-title').text('ხარჯების ისტორია')
+        $('#collapsePages').addClass('show')
+    </script>
+
+{% endblock %}

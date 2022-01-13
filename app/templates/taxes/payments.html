@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <table id="payments_table" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr id="titles">
+                <th>გადასახადის ტიპი</th>
+                <th>გადახდილი რაოდენობა</th>
+                <th>გადახდის თარიღი</th>
+                <th>ჩანაწერის შენახვის თარიღი</th>
+            </tr>
+        </thead>
+        <tbody id="table_body">
+            {% for payment_entity in payments_arr %}
+                <tr>
+                    {% for payment_item in payment_entity %}
+                        <td>{{ payment_item }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>გადასახადის ტიპი</th>
+                <th>გადახდილი რაოდენობა</th>
+                <th>გადახდის თარიღი</th>
+                <th>ჩანაწერის შენახვის თარიღი</th>
+            </tr>
+        </tfoot>
+    </table>
+
+{#    <form action="" method="get" id="payments_form">#}
+{#        <div class="row col-sm-12 col-md-6">#}
+{#            <label for="payment_type" class="col-sm-2 col-form-label col-form-label-sm">გადასახადის ტიპი</label>#}
+{#            <div class="col-sm-10">#}
+{#                <select class="form-control form-control-sm" id="payment_type" name="payment_type">#}
+{#                {% for type in payment_types %}#}
+{#                    <option value="{{ type.label }}">{{ type.label }}</option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#            </div>#}
+{#        </div>#}
+{#        <button class="btn btn-primary">მიღება</button>#}
+{#    </form>#}
+
+    <script>
+        $(document).ready( function () {
+            $('#payments_table').DataTable({
+                 "order": [],
+                 "language": {
+                     "search": "ძებნა:",
+                     "emptyTable": "ჩანაწერები არ მოიძებნა",
+                     "paginate": {
+                         "next": "წინ",
+                         "previous": 'უკან'
+                     }
+                 }
+            })
+            appendPaymentTypes()
+        })
+
+        $('#card-title').text('გადასახადების ისტორია')
+        $('#collapsePages').addClass('show')
+    </script>
+{% endblock %}

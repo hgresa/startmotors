@@ -1,0 +1,173 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+########################################################################################################################
+# Salary model
+
+type Salary {
+    salary_id: Int!
+    amount: Int!
+    pay_date: String!
+    created_at: String!
+    employee: Employee
+}
+
+type SalaryResult {
+    success: Boolean!
+    errors: [String]
+    salary: Salary
+}
+
+type SalariesResult {
+    success: Boolean!
+    errors: [String]
+    salaries: [Salary]
+}
+
+type DeleteSalaryResult {
+    success: Boolean
+    errors: [String]
+}
+
+########################################################################################################################
+# Employee Model
+
+type Employee {
+    employee_id: Int!
+    name: String!
+    surname: String!
+}
+
+type EmployeeResult {
+    success: Boolean!
+    errors: [String]
+    employee: Employee
+}
+
+type EmployeesResult {
+    success: Boolean!
+    errors: [String]
+    employees: [Employee]
+}
+
+########################################################################################################################
+# Expense model
+
+type Expense {
+    expense_id: Int!
+    paid_total: Int!
+    pay_date: String!
+    description: String!
+    created_at: String!
+}
+
+type ExpenseResult {
+    success: Boolean!
+    errors: [String]
+    expense: Expense
+}
+
+type ExpensesResult {
+    success: Boolean!
+    errors: [String]
+    expenses: [Expense]
+}
+
+########################################################################################################################
+# MonthlyPaymentValue Model
+# MonthlyPaymentTypes Model
+
+type MonthlyPaymentTypes {
+    payment_type_id: Int!
+    label: String!
+}
+
+type MonthlyPaymentValue {
+    payment_id: Int!
+    value: Float!
+    pay_date: String!
+    created_at: String!
+    type: MonthlyPaymentTypes!
+}
+
+type MonthlyPaymentValueResult {
+    success: String!
+    errors: [String]
+    monthly_payment_value: MonthlyPaymentValue
+}
+
+type MonthlyPaymentValuesResult {
+    success: String!
+    errors: [String]
+    monthly_payment_values: [MonthlyPaymentValue]
+}
+
+########################################################################################################################
+# CarCategories
+# CarModels
+
+type CarCategories {
+    car_category_id: Int!
+    car_category_name: String!
+    car_models: [CarModels]
+}
+
+type CarModels {
+    car_model_id: Int!
+    car_model_name: String!
+    car_category: CarCategories!
+}
+
+type CarCategoryResult {
+    success: Boolean!
+    errors: [String]
+    car_category: CarCategories
+}
+
+type CarCategoriesResult {
+    success: Boolean!
+    errors: [String]
+    car_categories: [CarCategories]
+}
+
+type CarModelResult {
+    success: Boolean!
+    errors: [String]
+    car_model: CarModels
+}
+
+type CarModelsResult {
+    success: Boolean!
+    errors: [String]
+    car_model: [CarModels]
+}
+
+########################################################################################################################
+
+type Query {
+    salary(salary_id: ID!): SalaryResult!
+    salaries: SalariesResult!
+
+    employee(employee_id: ID!): EmployeeResult!
+    employees: EmployeesResult!
+
+    expense(expense_id: ID!): ExpenseResult!
+    expenses: ExpensesResult!
+
+    monthly_payment_value(payment_id: ID!): MonthlyPaymentValueResult!
+    monthly_payment_values: MonthlyPaymentValuesResult!
+
+    car_category(car_category_id: ID!): CarCategoryResult!
+    car_categories: CarCategoriesResult!
+
+    car_model(car_model_id: ID!): CarModelResult!
+    car_models: CarModelsResult!
+}
+
+type Mutation {
+    createSalary(amount: Int!, pay_date: String!): SalaryResult!
+    deleteSalary(salary_id: ID!): DeleteSalaryResult!
+}
+

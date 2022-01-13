@@ -1,0 +1,46 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Attribute {
+    attribute_id: Int!
+    label: String!
+    data_type: DataTypes!
+    entity_type: EntityType!
+    attribute_set: AttributeSet!
+}
+
+type AttributeSet {
+    attribute_set_id: Int!
+    label: String!
+}
+
+type DataTypes {
+    data_type_id: Int!
+    label: String!
+}
+
+type EntityType {
+    entity_type_id: Int!
+    label: String!
+
+}
+
+type AttributeValueInteger {
+    id: Int!
+    value: Int!
+    entity_id: Int!
+    entity_type: EntityType!
+    attribute: Attribute!
+    created_at: String!
+}
+
+type AttributeValueVarchar {
+    id: Int!
+    value: String!
+    entity_id: Int!
+    entity_type: EntityType!
+    attribute: Attribute!
+    created_at: String!
+}
