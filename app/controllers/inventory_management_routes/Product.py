@@ -1,8 +1,19 @@
+import json
 from app import app
 from flask import jsonify, request, render_template, make_response
-from app.models.inventory_managemet_models import *
-from app.models.EAV_models import *
-import json
+from app.models.inventory_managemet_models.Product import Product
+from app.models.inventory_managemet_models.CarModels import CarModels
+from app.models.inventory_managemet_models.Stock import Stock
+from app.models.inventory_managemet_models.GroupEntity import GroupEntity
+from app.models.inventory_managemet_models.StockHistory import StockHistory
+from app.models.inventory_managemet_models.StockHistoryGroup import StockHistoryGroup
+from app.models.inventory_managemet_models.Litres import Litres
+from app.models.inventory_managemet_models.ProductCategories import ProductCategories
+from app.models.inventory_managemet_models.OrderSales import OrderSales
+from app.models.inventory_managemet_models.OrderSalesGroup import OrderSalesGroup
+from app.models.EAV_models.AttributeValueInteger import AttributeValueInteger
+from app.models.EAV_models.AttributeValueVarchar import AttributeValueVarchar
+from app.models.EAV_models.EntityType import EntityType
 
 
 def insert_product(litres, quantity, price_per_piece, purchase_price, total_price,
