@@ -167,7 +167,7 @@ type Query {
 }
 
 type Mutation {
-    createSalary(amount: Int!, pay_date: String!): SalaryResult!
+    createSalary(amount: Int!, pay_date: String!, employee_id: Int!): SalaryResult!
     deleteSalary(salary_id: ID!): DeleteSalaryResult!
 }
 

@@ -5,6 +5,7 @@ from app.models.Salary import Employees
 from ariadne.constants import PLAYGROUND_HTML
 from ariadne import graphql_sync
 from app.api.queries import resolve_salaries, resolve_salary, resolve_employees, resolve_employee, resolve_expenses, resolve_expense, resolve_monthly_payment_value, resolve_monthly_payment_values, resolve_car_category, resolve_car_categories, resolve_car_model
+from app.api.mutations import resolve_create_salary
 from ariadne import load_schema_from_path, make_executable_schema, \
     snake_case_fallback_resolvers, ObjectType
 
@@ -21,10 +22,13 @@ query.set_field('car_category', resolve_car_category)
 query.set_field('car_categories', resolve_car_categories)
 query.set_field('car_model', resolve_car_model)
 
+mutation = ObjectType("Mutation")
+mutation.set_field('createSalary', resolve_create_salary)
+
 # type_defs = load_schema_from_path('/usr/src/app/app/schema.graphql')
 # type_defs2 = load_schema_from_path('/usr/src/app/app/models/models.graphql')
 type_defs2 = load_schema_from_path('../startmotors/app/models/models.graphql')
-schema = make_executable_schema([type_defs2], query, snake_case_fallback_resolvers)
+schema = make_executable_schema([type_defs2], query, mutation, snake_case_fallback_resolvers)
 
 
 @app.route("/salaries", methods=["GET"])

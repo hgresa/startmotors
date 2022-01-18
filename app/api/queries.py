@@ -100,6 +100,7 @@ def resolve_expense(obj, info, expense_id):
 
     return payload
 
+
 def resolve_monthly_payment_value(obj, info, payment_id):
     try:
         monthly_payment_value = MonthlyPaymentValue.query.get(payment_id).to_dict()
@@ -114,6 +115,7 @@ def resolve_monthly_payment_value(obj, info, payment_id):
         }
 
     return payload
+
 
 def resolve_monthly_payment_values(obj, info):
     try:
@@ -130,6 +132,7 @@ def resolve_monthly_payment_values(obj, info):
 
     return payload
 
+
 def resolve_car_category(obj, info, car_category_id):
     try:
         car_category = CarCategories.query.get(car_category_id).to_dict()
@@ -145,6 +148,7 @@ def resolve_car_category(obj, info, car_category_id):
 
     return payload
 
+
 def resolve_car_categories(obj, info):
     try:
         car_categories = [car_category.to_dict() for car_category in CarCategories.query.all()]
@@ -159,6 +163,7 @@ def resolve_car_categories(obj, info):
         }
 
     return payload
+
 
 def resolve_car_model(obj, info, car_model_id):
     try:
