@@ -119,7 +119,7 @@ function getAttributes(product_category)
                 for (const key in result) {
                     let attribute_name = result[key]
                     let translation = {"litres_quantity": "ლიტრა", 'car_model_id': 'მანქანის მოდელი', 'sku': 'კოდი', 'variety': 'სახეობა',
-                                        'class': 'კლასი'}
+                                        'class': 'კლასი', 'car_countries': 'მანქანის ქვეყნები'}
 
                     if (attribute_name === "car_model_id") {
                         renderCarDom(attribute_name)

@@ -1,0 +1,46 @@
+type Product {
+    product_id: Int!
+    product_name: String!
+    entity_type: String
+    product_category: String
+}
+
+########################################################################################################################
+# CarCategories
+# CarModels
+
+type CarCategories {
+    car_category_id: Int!
+    car_category_name: String!
+    car_models: [CarModels]
+}
+
+type CarModels {
+    car_model_id: Int!
+    car_model_name: String!
+    car_category: CarCategories!
+}
+
+type CarCategoryResult {
+    success: Boolean!
+    errors: [String]
+    car_category: CarCategories
+}
+
+type CarCategoriesResult {
+    success: Boolean!
+    errors: [String]
+    car_categories: [CarCategories]
+}
+
+type CarModelResult {
+    success: Boolean!
+    errors: [String]
+    car_model: CarModels
+}
+
+type CarModelsResult {
+    success: Boolean!
+    errors: [String]
+    car_model: [CarModels]
+}

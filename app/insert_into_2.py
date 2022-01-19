@@ -63,10 +63,10 @@ for i in ['sku', 'variety', 'litres_quantity']:
                      attribute_set=hydro_oil,
                      data_type=data_type)
 
-for i in ['car_model_id', 'sku', 'class', 'variety', 'litres_quantity']:
+for i in ['car_countries', 'sku', 'class', 'variety', 'litres_quantity']:
     data_type = varchar_data_type
 
-    if i in ['car_model_id', 'litres_quantity']:
+    if i in ['litres_quantity']:
         data_type = integer_data_type
 
     Attribute.create(label=i,

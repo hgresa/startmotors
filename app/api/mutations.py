@@ -23,3 +23,6 @@ def resolve_create_salary(obj, info, amount, pay_date, employee_id):
         }
 
     return payload
+
+def resolve_create_product():
+    pass
