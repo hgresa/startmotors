@@ -98,3 +98,20 @@ class Product(db.Model, Base):
 
     def get_product_name(self):
         return self.product_name
+
+    def get_product_id(self):
+        return self.product_id
+
+    def get_entity_type(self):
+        return self.product_entity
+
+    def get_product_category(self):
+        return self.product_category
+
+    def to_dict(self):
+        return {
+            'product_id': self.get_product_id(),
+            'product_name': self.get_product_name(),
+            'entity_type': self.get_entity_type(),
+            'product_category': self.get_product_category()
+        }

@@ -6,6 +6,12 @@ type Attribute {
     attribute_set: AttributeSet!
 }
 
+type AttributeResult {
+    success: Boolean!
+    errors: [String]
+    attribute: Attribute
+}
+
 type AttributeSet {
     attribute_set_id: Int!
     label: String!
@@ -19,7 +25,6 @@ type DataTypes {
 type EntityType {
     entity_type_id: Int!
     label: String!
-
 }
 
 type AttributeValueInteger {
