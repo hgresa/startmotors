@@ -1,10 +1,3 @@
-type Product {
-    product_id: Int!
-    product_name: String!
-    entity_type: String
-    product_category: String
-}
-
 ########################################################################################################################
 # CarCategories
 # CarModels
@@ -44,3 +37,106 @@ type CarModelsResult {
     errors: [String]
     car_model: [CarModels]
 }
+
+########################################################################################################################
+# GroupEntity
+
+type GroupEntity {
+    group_entity_id: Int!
+    label: String!
+}
+
+########################################################################################################################
+# Litres
+
+type Litres {
+    id: Int!
+    quantity: Int!
+    entity_id: Int!
+    group_entity: GroupEntity!
+    created_at: String!
+}
+
+########################################################################################################################
+# OrderSalesGroup
+# OrderSales
+
+type OrderSalesGroup {
+    group_id: Int!
+    label: String!
+    group_entity: GroupEntity!
+}
+
+type OrderSales {
+    order_sale_id: Int!
+    quantity: Int!
+    price_per_piece: Float!
+    sold_for_total: Float!
+    product: Product!
+    group: OrderSalesGroup!
+    group_entity: GroupEntity
+    created_at: String!
+}
+
+########################################################################################################################
+# Product
+
+type Product {
+    product_id: Int!
+    product_name: String!
+    entity_type: String
+    product_category: String
+}
+
+type ProductResult {
+    success: Boolean!
+    errors: [String]
+    product: Product
+}
+
+type ProductsResult {
+    success: Boolean!
+    errors: [String]
+    product: [Product]
+}
+
+########################################################################################################################
+# ProductCategories
+
+type ProductCategories {
+    product_category_id: Int!
+    category_name: String!
+    entity_type: EntityType!
+    attribute_set: AttributeSet
+}
+
+########################################################################################################################
+# Stock
+# StockHistory
+# StockHistoryGroup
+
+type Stock {
+    stock_id: Int!
+    price_per_piece: Float!
+    stock_qty: Int!
+    product: Product!
+}
+
+type StockHistory {
+    stock_history_id: Int!
+    quantity: Int!
+    total_price: Float!
+    price_per_piece: Float!
+    stock: Stock!
+    group: StockHistoryGroup!
+    group_entity: GroupEntity!
+    created_at: String!
+}
+
+type StockHistoryGroup {
+    group_id: Int!
+    label: String!
+    group_entity: GroupEntity!
+}
+
+########################################################################################################################

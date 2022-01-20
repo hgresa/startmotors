@@ -129,5 +129,7 @@ type Query {
 type Mutation {
     createSalary(amount: Int!, pay_date: String!, employee_id: Int!): SalaryResult!
     deleteSalary(salary_id: ID!): DeleteSalaryResult!
+    createProduct(product_name: String!, product_category_id: Int!): ProductResult!
+    createAttributeValue(attribute_label: String!, attribute_value: String!, product_id: Int!): String!
 }
 
