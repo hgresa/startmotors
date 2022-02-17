@@ -1,5 +1,6 @@
 from app import db
 from app.models.Base import Base
+from sqlalchemy import DateTime, func
 
 
 class EntityType(db.Model, Base):
@@ -12,6 +13,7 @@ class EntityType(db.Model, Base):
                                                      lazy='dynamic')
     attr_value_integer_entity_type = db.relationship('AttributeValueInteger', backref='attr_value_integer_entity_type',
                                                      lazy='dynamic')
+    created_at = db.Column(DateTime(timezone=True), server_default=func.now())
 
     def get_entity_type_id(self):
         return self.get_entity_type_id

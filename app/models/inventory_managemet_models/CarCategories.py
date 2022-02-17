@@ -1,11 +1,13 @@
 from app import db
 from app.models.Base import Base
+from sqlalchemy import DateTime, func
 
 
 class CarCategories(db.Model, Base):
     car_category_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     car_category_name = db.Column(db.String(255))
     car_models = db.relationship('CarModels', backref='model', lazy='dynamic')
+    created_at = db.Column(DateTime(timezone=True), server_default=func.now())
 
     def get_car_category_id(self):
         return self.car_category_id

@@ -1,6 +1,7 @@
 from app import db
 from app.models.Base import Base
 from app.models.EAV_models.Attribute import Attribute
+from sqlalchemy import DateTime, func
 
 
 class ProductCategories(db.Model, Base):
@@ -9,6 +10,7 @@ class ProductCategories(db.Model, Base):
     product_category = db.relationship('Product', backref='product_category', lazy='dynamic')
     entity_type_id = db.Column(db.Integer, db.ForeignKey('entity_type.entity_type_id'))
     attribute_set_id = db.Column(db.Integer, db.ForeignKey('attribute_set.attribute_set_id'))
+    created_at = db.Column(DateTime(timezone=True), server_default=func.now())
 
     def get_attributes(self):
         return self.attribute_set_category.attribute_set.all()

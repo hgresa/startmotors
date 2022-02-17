@@ -4,7 +4,7 @@
 
     {% include "alert.html" %}
 
-    <form id="the_form" method="post" action="">
+    <form id="the_form" method="post" action="" onsubmit="event.preventDefault(); new Payment().handlePaymentSave()">
         <div class="form-group">
             <label for="payment_type" class="form-label">გადასახადის ტიპი</label>
             <select class="form-control" id="payment_type" name="payment_type" required>

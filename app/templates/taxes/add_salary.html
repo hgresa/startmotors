@@ -4,7 +4,7 @@
 
     {% include "alert.html" %}
 
-    <form id="the_form" method="post" action="">
+    <form id="the_form" method="post" action="" onsubmit="event.preventDefault(); new Salary().handle_salary_save()">
         <div class="form-group">
             <label for="employee_id" class="form-label">თანამშრომელი</label>
             <select class="form-control" id="employee_id" name="employee_id" required>

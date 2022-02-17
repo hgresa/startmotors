@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <table id="table_id" class="table table-bordered" style="width:100%">
+    <table id="expenses_table" class="table table-bordered" style="width:100%">
         <thead>
             <tr id="titles">
                 <th>გადახდილი თანხა</th>
@@ -29,6 +29,20 @@
     </table>
 
     <script>
+        $(document).ready( function () {
+            $('#expenses_table').DataTable({
+                 "order": [],
+                 "language": {
+                     "search": "ძებნა:",
+                     "emptyTable": "ჩანაწერები არ მოიძებნა",
+                     "paginate": {
+                         "next": "წინ",
+                         "previous": 'უკან'
+                     }
+                 }
+            })
+        })
+
         $('#card-title').text('ხარჯების ისტორია')
         $('#collapsePages').addClass('show')
     </script>

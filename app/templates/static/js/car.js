@@ -1,38 +1,27 @@
-function on_input() {
-    let val = document.getElementById("car_brand").value;
-    let opts = document.getElementById('cars').childNodes;
-    for (let i = 0; i < opts.length; i++) {
-        if (opts[i].value === val) {
-            let car_models = get_car_models(opts[i].value)
-            appendModelsToSelect('car_models', car_models)
-            break;
-        }
+class Car {
+    get_car_categories() {
+        $.post({
+            async: false,
+            url: '/graphql',
+            contentType: 'application/json',
+            data: JSON.stringify({"query": "{\n" +
+                    "  car_categories {\n" +
+                    "    car_categories {\n" +
+                    "      car_category_id\n" +
+                    "      car_category_name\n" +
+                    "      car_models {\n" +
+                    "        car_model_name\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "}\n"}),
+
+        }).done(function (response) {
+
+        })
     }
-}
 
-function get_car_categories() {
-    $.post({
-        async: false,
-        url: '/graphql',
-        contentType: 'application/json',
-        data: JSON.stringify({"query": "{\n" +
-                "  car_categories {\n" +
-                "    car_categories {\n" +
-                "      car_category_id\n" +
-                "      car_category_name\n" +
-                "      car_models {\n" +
-                "        car_model_name\n" +
-                "      }\n" +
-                "    }\n" +
-                "  }\n" +
-                "}\n"}),
-
-    }).done(function (response) {
-
-    })
-}
-
-function get_car_models(car_category_id) {
+    get_car_models(car_category_id) {
         let car_models = []
         $.post({
             async: false,
@@ -54,6 +43,51 @@ function get_car_models(car_category_id) {
         })
 
         return car_models
+    }
+
+    create_cars(car_brand, car_models) {
+        $.post({
+            async: false,
+            url: '/graphql',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                query: 'mutation test {' +
+                    'createCars(' +
+                        `car_brand: "${car_brand}",` +
+                        `new_car_models: "${car_models}"` +
+                    ') {' +
+                            'success,' +
+                            'errors' +
+                        '}' +
+                    '}'
+            })
+        }).done(function (response) {
+            if (response['data']['createCars']['success'] === 'true') {
+                window.location.search += '&success=1';
+            }
+        })
+    }
+
+    handleCarSave() {
+        let form_data = $('#the_form').serializeArray()
+        let car_brand = form_data[0].value
+        let new_car_models = form_data[1].value
+
+        this.create_cars(car_brand, new_car_models)
+    }
+}
+
+function on_input() {
+    let carObj = new car()
+    let val = document.getElementById("car_brand").value;
+    let opts = document.getElementById('cars').childNodes;
+    for (let i = 0; i < opts.length; i++) {
+        if (opts[i].value === val) {
+            let car_models = carObj.get_car_models(opts[i].value)
+            appendModelsToSelect('car_models', car_models)
+            break;
+        }
+    }
 }
 
 function removeModelsFromSelect(select_element_id) {

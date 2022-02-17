@@ -9,3 +9,6 @@ RUN pip install --no-cache -r requirements.txt
 EXPOSE 8088
 
 CMD ["python","startmotors.py"]
+dsadsa
+d
+asd

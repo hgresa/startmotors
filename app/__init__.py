@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app._static_folder = 'templates/static'
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 config = Config()
 
 app.config['SECRET_KEY'] = 'nomc1589z'

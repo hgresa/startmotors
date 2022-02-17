@@ -79,17 +79,31 @@ type ExpensesResult {
 # MonthlyPaymentValue Model
 # MonthlyPaymentTypes Model
 
-type MonthlyPaymentTypes {
+type MonthlyPaymentType {
     payment_type_id: Int!
     label: String!
 }
+
+
+type MonthlyPaymentTypesResult {
+    success: Boolean!
+    errors: [String]
+    monthly_payment_types: [MonthlyPaymentType]
+}
+
+type MonthlyPaymentTypeResult {
+    success: Boolean!
+    errors: [String]
+    monthly_payment_type: MonthlyPaymentType
+}
+
 
 type MonthlyPaymentValue {
     payment_id: Int!
     value: Float!
     pay_date: String!
     created_at: String!
-    type: MonthlyPaymentTypes!
+    type: MonthlyPaymentType!
 }
 
 type MonthlyPaymentValueResult {
@@ -106,9 +120,19 @@ type MonthlyPaymentValuesResult {
 
 ########################################################################################################################
 
+type GeneralResult {
+    success: String!
+    errors: [String]
+}
+
+input OrderBy {
+    sort_by: String
+    sort_type: String
+}
+
 type Query {
     salary(salary_id: ID!): SalaryResult!
-    salaries: SalariesResult!
+    salaries(order_by: OrderBy): SalariesResult!
 
     employee(employee_id: ID!): EmployeeResult!
     employees: EmployeesResult!
@@ -117,7 +141,10 @@ type Query {
     expenses: ExpensesResult!
 
     monthly_payment_value(payment_id: ID!): MonthlyPaymentValueResult!
-    monthly_payment_values: MonthlyPaymentValuesResult!
+    monthly_payment_values(order_by: OrderBy): MonthlyPaymentValuesResult!
+
+    monthly_payment_type(payment_type_id: Int!): MonthlyPaymentTypeResult!
+    monthly_payment_types(order_by: OrderBy): MonthlyPaymentTypesResult!
 
     car_category(car_category_id: ID!): CarCategoryResult!
     car_categories: CarCategoriesResult!
@@ -127,9 +154,11 @@ type Query {
 }
 
 type Mutation {
-    createSalary(amount: Int!, pay_date: String!, employee_id: Int!): SalaryResult!
+    createSalary(amount: Float!, pay_date: String!, employee_id: Int!): SalaryResult!
     deleteSalary(salary_id: ID!): DeleteSalaryResult!
+    createCars(car_brand: String!, new_car_models: String!): GeneralResult!
     createProduct(product_name: String!, product_category_id: Int!): ProductResult!
     createAttributeValue(attribute_label: String!, attribute_value: String!, product_id: Int!): String!
+    createMonthlyPaymentValue(amount: Float!, pay_date: String!, payment_type: String!): MonthlyPaymentValueResult!
 }
 
