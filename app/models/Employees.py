@@ -1,5 +1,6 @@
 from app import db
 from app.models.Base import Base
+from sqlalchemy import DateTime, func
 
 
 class Employees(db.Model, Base):
@@ -9,6 +10,7 @@ class Employees(db.Model, Base):
     full_name = db.ColumnProperty(name + " " + surname)
     employee_to_pay = db.relationship('Salary', backref='employee_to_pay', lazy='dynamic')
     employee_that_worked = db.relationship('CompletedWork', backref='employee_that_worked', lazy='dynamic')
+    created_at = db.Column(DateTime(timezone=True), server_default=func.now())
 
     def get_employees(self):
         return self.query.with_entities(Employees.employee_id,

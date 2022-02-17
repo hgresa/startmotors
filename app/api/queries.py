@@ -1,13 +1,38 @@
-# from app.models.Salary import Salary
-# from app.models.Employees import Employees
-# from app.models.Expense import Expense
-from app.models import *
-from app.models.inventory_managemet_models import *
+from app.models.Expense import Expense
+from app.models.Salary import Salary
+from app.models.Employees import Employees
+from app.models.MonthlyPaymentValue import MonthlyPaymentValue
+from app.models.MonthlyPaymentTypes import MonthlyPaymentTypes
+from app.models.inventory_managemet_models.CarModels import CarModels
+from app.models.inventory_managemet_models.CarCategories import CarCategories
+from sqlalchemy import desc, asc
+import sys
 
 
-def resolve_salaries(obj, info):
+def str_to_class(classname):
+    return getattr(sys.modules[__name__], classname)
+
+
+def build_query(filters, class_name):
+    order_by = filters.get('order_by', {'sort_by': 'created_at', 'sort_type': 'desc'})
+    sort_by = order_by.get('sort_by', 'created_at')
+    sort_type = order_by.get('sort_type', 'desc').lower()
+
+    _class = str_to_class(class_name)
+    query = _class.query
+
+    if sort_type == 'desc':
+        query = _class.query.order_by(desc(f'{sort_by}'))
+    elif sort_type == 'asc':
+        query = _class.query.order_by(asc(f'{sort_by}'))
+
+    return query.all()
+
+
+def resolve_salaries(obj, info, **filters):
     try:
-        salaries = [salary.to_dict() for salary in Salary.query.all()]
+        query = build_query(filters, Salary.__name__)
+        salaries = [salary.to_dict() for salary in query]
         payload = {
             'success': True,
             'salaries': salaries
@@ -117,12 +142,35 @@ def resolve_monthly_payment_value(obj, info, payment_id):
     return payload
 
 
-def resolve_monthly_payment_values(obj, info):
+def resolve_monthly_payment_values(obj, info, **filters):
     try:
-        monthly_payment_values = [mpv.to_dict() for mpv in MonthlyPaymentValue.query.all()]
+        query = build_query(filters, MonthlyPaymentValue.__name__)
+        monthly_payment_values = [mpv.to_dict() for mpv in query]
         payload = {
             'success': True,
             'monthly_payment_values': monthly_payment_values
+        }
+    except Exception as error:
+        payload = {
+            'success': False,
+            'errors': [str(error)]
+        }
+
+    return payload
+
+
+def resolve_monthly_payment_type(obj, info):
+    pass
+
+
+def resolve_monthly_payment_types(obj, info, **filters):
+    try:
+        query = build_query(filters, MonthlyPaymentTypes.__name__)
+        monthly_payment_types = [mpt.to_dict() for mpt in query]
+
+        payload = {
+            'success': True,
+            'monthly_payment_types': monthly_payment_types
         }
     except Exception as error:
         payload = {

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <form id="the_form" action="" method="post">
+    <form id="the_form" action="" method="post" onsubmit="event.preventDefault(); new Car().handleCarSave()">
         <div class="form-group">
             <label for="car_brand">მანქანის ბრენდი</label>
             <input oninput='on_input()' id="car_brand" name="car_brand" class="form-control" type="text" list="cars"/>

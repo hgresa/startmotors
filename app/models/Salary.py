@@ -6,7 +6,7 @@ from app.models.Base import Base
 
 class Salary(db.Model, Base):
     salary_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    amount = db.Column(db.Integer, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
     pay_date = db.Column(DateTime(timezone=True), nullable=False)
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     employee_id = db.Column(db.Integer, db.ForeignKey('employees.employee_id'))

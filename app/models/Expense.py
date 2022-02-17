@@ -23,7 +23,7 @@ class Expense(db.Model, Base):
         return self.description
 
     def get_created_at(self):
-        return self.create()
+        return self.created_at
 
     def to_dict(self):
         return {

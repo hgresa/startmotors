@@ -4,8 +4,10 @@ from app.models.Salary import Salary
 from app.models.Salary import Employees
 from ariadne.constants import PLAYGROUND_HTML
 from ariadne import graphql_sync
-from app.api.queries import resolve_salaries, resolve_salary, resolve_employees, resolve_employee, resolve_expenses, resolve_expense, resolve_monthly_payment_value, resolve_monthly_payment_values, resolve_car_category, resolve_car_categories, resolve_car_model
-from app.api.mutations import resolve_create_salary, resolve_create_attribute_value
+from app.api.queries import resolve_salaries, resolve_salary, resolve_employees, resolve_employee, resolve_expenses, \
+    resolve_expense, resolve_monthly_payment_value, resolve_monthly_payment_values, resolve_car_category, \
+    resolve_car_categories, resolve_car_model, resolve_monthly_payment_types, resolve_monthly_payment_type
+from app.api.mutations import resolve_create_salary, resolve_create_attribute_value, resolve_create_cars, resolve_create_monthly_payment_value
 from ariadne import load_schema_from_path, make_executable_schema, \
     snake_case_fallback_resolvers, ObjectType
 
@@ -21,10 +23,13 @@ query.set_field('monthly_payment_values', resolve_monthly_payment_values)
 query.set_field('car_category', resolve_car_category)
 query.set_field('car_categories', resolve_car_categories)
 query.set_field('car_model', resolve_car_model)
+query.set_field('monthly_payment_types', resolve_monthly_payment_types)
 
 mutation = ObjectType("Mutation")
 mutation.set_field('createSalary', resolve_create_salary)
 mutation.set_field('createAttributeValue', resolve_create_attribute_value)
+mutation.set_field('createCars', resolve_create_cars)
+mutation.set_field('createMonthlyPaymentValue', resolve_create_monthly_payment_value)
 
 # type_defs = load_schema_from_path('/usr/src/app/app/schema.graphql')
 # type_defs2 = load_schema_from_path('/usr/src/app/app/models/models.graphql')
@@ -37,9 +42,7 @@ schema = make_executable_schema([type_defs2, type_defs3, type_defs4], query, mut
 
 @app.route("/salaries", methods=["GET"])
 def salaries():
-    salary_list = Salary.get_fully_qualified_salaries(Salary())
-
-    return render_template("taxes/salaries.html", salary_list=salary_list)
+    return render_template("taxes/salaries.html")
 
 
 @app.route("/add_salary", methods=["GET", "POST"])
@@ -47,16 +50,7 @@ def add_salary():
     employees = Employees.get_employees(Employees())
     success = False
 
-    if request.method == "POST":
-        employee_id = request.form["employee_id"]
-        employee = Employees.get(employee_id=employee_id)[0]
-
-        amount = request.form["amount"]
-        pay_date = request.form["pay_date"]
-        salary = Salary.create(amount=amount,
-                               pay_date=pay_date,
-                               employee_to_pay=employee)
-
+    if request.args.get('success'):
         success = True
 
     return render_template("taxes/add_salary.html", employees=employees, success=success)

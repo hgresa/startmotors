@@ -1,5 +1,6 @@
 from app import db
 from app.models.Base import Base
+from sqlalchemy import DateTime, func
 
 
 class Attribute(db.Model, Base):
@@ -10,6 +11,7 @@ class Attribute(db.Model, Base):
     attribute_set_id = db.Column(db.Integer, db.ForeignKey('attribute_set.attribute_set_id'))
     attribute_var = db.relationship('AttributeValueVarchar', backref="attribute_var", lazy="dynamic")
     attribute_int = db.relationship('AttributeValueInteger', backref="attribute_int", lazy="dynamic")
+    created_at = db.Column(DateTime(timezone=True), server_default=func.now())
 
     def get_data_type_label(self):
         return self.data_type.label

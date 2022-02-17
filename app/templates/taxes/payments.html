@@ -12,13 +12,7 @@
             </tr>
         </thead>
         <tbody id="table_body">
-            {% for payment_entity in payments_arr %}
-                <tr>
-                    {% for payment_item in payment_entity %}
-                        <td>{{ payment_item }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
+
         </tbody>
         <tfoot>
             <tr>
@@ -45,6 +39,7 @@
 {#    </form>#}
 
     <script>
+        let payment = new Payment()
         $(document).ready( function () {
             $('#payments_table').DataTable({
                  "order": [],
@@ -57,7 +52,8 @@
                      }
                  }
             })
-            appendPaymentTypes()
+            payment.populate_data_table()
+            {#appendPaymentTypes()#}
         })
 
         $('#card-title').text('გადასახადების ისტორია')
